@@ -1,0 +1,49 @@
+# docker-compose.yml
+# WHY DOCKER COMPOSE?
+# Runs backend + frontend together with one command
+# Manages networking between containers automatically
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - REDIS_URL=${REDIS_URL}
+      - REDIS_TOKEN=${REDIS_TOKEN}
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      # Mount FAISS index so it persists across restarts
+      - ./faiss_index:/app/faiss_index
+      - ./test_data:/app/test_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.gradio
+    container_name: rag-frontend
+    ports:
+      - "7860:7860"
+    environment:
+      - API_BASE_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+# WHY VOLUMES?
+# Data persists even if container is destroyed and recreated
+volumes:
+  faiss_index:
+  test_data:
