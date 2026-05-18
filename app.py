@@ -68,8 +68,7 @@ def chat_with_pdf(message, history):
         
         return history, sources_md
     except Exception as e:
-        history.append({"role": "user", "content": message})
-        history.append({"role": "assistant", "content": f"❌ Error: {str(e)}"})
+        history.append((message, result["answer"]))
         return history, ""
 
 # Build Gradio interface
@@ -86,7 +85,7 @@ with gr.Blocks(title="RAG Document Q&A Assistant") as demo:
         
         with gr.Column(scale=2):
             gr.Markdown("### 💬 Ask Questions")
-            chatbot = gr.Chatbot(height=400, type="messages")
+            chatbot = gr.Chatbot(height=400)
             msg = gr.Textbox(
                 label="Your question",
                 placeholder="What is this document about?",
