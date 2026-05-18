@@ -46,29 +46,32 @@ def process_pdf(file):
 def chat_with_pdf(message, history):
     """Handle chat messages"""
     global rag_chain_tuple
-    
+
+    if history is None:
+        history = []
+
     if rag_chain_tuple is None:
-        history.append({"role": "user", "content": message})
-        history.append({"role": "assistant", "content": "❌ Please upload a PDF first"})
+        history.append([message, "❌ Please upload a PDF first"])
         return history, ""
-    
+
     try:
         # Get answer
         result = ask_question(rag_chain_tuple, message)
-        
+
         # Format sources
         sources_md = "### 📚 Sources\n\n"
+
         for i, source in enumerate(result["sources"], 1):
             sources_md += f"**[{i}] Page {source['page']}**\n"
             sources_md += f"> {source['content'][:150]}...\n\n"
-        
+
         # Update history
-        history.append({"role": "user", "content": message})
-        history.append({"role": "assistant", "content": result["answer"]})
-        
+        history.append([message, result["answer"]])
+
         return history, sources_md
+
     except Exception as e:
-        history.append((message, result["answer"]))
+        history.append([message, f"❌ Error: {str(e)}"])
         return history, ""
 
 # Build Gradio interface
