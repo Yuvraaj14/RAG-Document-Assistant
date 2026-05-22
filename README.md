@@ -1,4 +1,16 @@
-﻿# 📄 RAG Document Q&A Assistant
+﻿---
+title: RAG Document Assistant
+emoji: 📄
+colorFrom: blue
+colorTo: purple
+sdk: gradio
+sdk_version: "4.44.1"
+python_version: "3.10"
+app_file: app.py
+pinned: false
+---
+
+# 📄 RAG Document Q&A Assistant
 
 > AI-powered document question-answering system with cited sources using RAG (Retrieval Augmented Generation)
 
@@ -42,7 +54,7 @@ Upload any PDF document and ask questions in natural language. The system retrie
 
 ## 🎥 Demo
 
-![Demo](https://raw.githubusercontent.com/Yuvraaj14/rag-document-assistant/demo.gif)
+![Demo](https://raw.githubusercontent.com/Yuvraaj14/rag-document-assistant/main/demo.gif)
 
 *Try it yourself: [Live on Hugging Face Spaces](https://huggingface.co/spaces/Yuvraaj14/rag-document-assistant)*
 
@@ -268,41 +280,49 @@ Get your free Groq API key: https://console.groq.com/
 ## 📁 Project Structure
 
 ```
+## 📁 Project Structure
+
+```text
 rag-assistant/
-├── rag-document-assistant/     # HF Spaces deployment folder
-├── app/                         # Backend application
-│   ├── api/
-│   │   ├── auth.py             # JWT authentication
-│   │   └── routes.py           # API endpoints (/upload, /ask)
-│   ├── core/
-│   │   ├── cache.py            # Redis caching layer
-│   │   ├── embeddings.py       # FAISS + HuggingFace embeddings
-│   │   ├── llm.py              # Dual LLM setup (Ollama + Groq)
-│   │   └── rag_pipeline.py     # LangChain LCEL pipeline
-│   ├── models/
-│   │   └── schemas.py          # Pydantic request/response models
-│   └── main.py                 # FastAPI app initialization
-├── tests/                       # Test suite
-│   ├── test_api.py             # API endpoint tests
-│   ├── test_cache.py           # Redis caching tests
-│   └── test_rag.py             # RAG pipeline tests
-├── faiss_index/                # FAISS vector store (generated)
-├── test_data/                  # Sample PDFs for testing
-├── k8s/                        # Kubernetes deployment configs
-├── venv/                       # Python virtual environment
-├── .dockerignore               # Docker ignore patterns
-├── .gitattributes              # Git attributes
-├── .gitignore                  # Git ignore patterns
-├── .env                        # Environment variables (not in Git)
-├── app.py                      # Gradio frontend interface
-├── docker-compose.yml          # Multi-service orchestration
-├── Dockerfile                  # Backend container image
-├── Dockerfile.gradio           # Frontend container image
-├── README.md                   # Project documentation
-├── requirements.txt            # Python dependencies
-├── test_embeddings.py          # Embedding model tests
-├── test_llm.py                 # LLM integration tests
-└── test_rag_pipeline.py        # End-to-end RAG tests
+├── rag-document-assistant/          # HF Spaces deployment folder
+│   ├── app/                         # Backend application
+│   │   ├── api/
+│   │   │   ├── auth.py              # JWT authentication
+│   │   │   └── routes.py            # API endpoints (/upload, /ask)
+│   │   ├── core/
+│   │   │   ├── cache.py             # Redis caching layer
+│   │   │   ├── embeddings.py        # FAISS + HuggingFace embeddings
+│   │   │   ├── llm.py               # Dual LLM setup (Ollama + Groq)
+│   │   │   └── rag_pipeline.py      # LangChain LCEL pipeline
+│   │   ├── models/
+│   │   │   └── schemas.py           # Pydantic request/response models
+│   │   └── main.py                  # FastAPI app initialization
+│   │
+│   ├── tests/                       # Test suite
+│   │   ├── test_api.py              # API endpoint tests
+│   │   ├── test_cache.py            # Redis caching tests
+│   │   └── test_rag.py              # RAG pipeline tests
+│   │
+│   ├── faiss_index/                 # FAISS vector store (generated)
+│   ├── test_data/                   # Sample PDFs for testing
+│   ├── k8s/                         # Kubernetes deployment configs
+│   ├── .dockerignore                # Docker ignore patterns
+│   ├── .gitattributes               # Git attributes
+│   ├── .gitignore                   # Git ignore patterns
+│   ├── app.py                       # Gradio frontend interface
+│   ├── demo.gif                     # Demo recording
+│   ├── docker-compose.yml           # Multi-service orchestration
+│   ├── Dockerfile                   # Backend container image
+│   ├── Dockerfile.gradio            # Frontend container image
+│   ├── README.md                    # Project documentation
+│   ├── requirements.txt             # Python dependencies
+│   ├── test_embeddings.py           # Embedding model tests
+│   ├── test_llm.py                  # LLM integration tests
+│   └── test_rag_pipeline.py         # End-to-end RAG tests
+│
+├── venv/                            # Python virtual environment
+└── .env                             # Environment variables (not in Git)
+
 ```
 
 ---
@@ -323,7 +343,7 @@ rag-assistant/
 - Persists across restarts
 
 **`rag-document-assistant/`** - HF Spaces deployment
-- Git submodule for Hugging Face hosting
+- Deployment folder for Hugging Face hosting
 - Synced with live demo
 
 ---
