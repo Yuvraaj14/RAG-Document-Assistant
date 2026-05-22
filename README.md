@@ -1,18 +1,16 @@
-﻿---
-title: RAG Document Assistant
+﻿title: RAG Document Assistant
 emoji: 📄
 colorFrom: blue
 colorTo: purple
 sdk: gradio
-sdk_version: "4.44.1"
-python_version: "3.10"
+sdk_version: 4.44.1
+python_version: '3.10'
 app_file: app.py
 pinned: false
----
 
 # 📄 RAG Document Q&A Assistant
 
-> AI-powered document question-answering system with cited sources using RAG (Retrieval Augmented Generation)
+AI-powered document question-answering system with cited sources using RAG (Retrieval Augmented Generation)
 
 **🔗 Live Demo:** [https://huggingface.co/spaces/Yuvraaj14/rag-document-assistant](https://huggingface.co/spaces/Yuvraaj14/rag-document-assistant)
 
@@ -54,7 +52,7 @@ Upload any PDF document and ask questions in natural language. The system retrie
 
 ## 🎥 Demo
 
-![Demo](https://raw.githubusercontent.com/Yuvraaj14/rag-document-assistant/main/demo.gif)
+![Demo](https://raw.githubusercontent.com/Yuvraaj14/RAG-Document-Assistant/main/demo.gif)
 
 *Try it yourself: [Live on Hugging Face Spaces](https://huggingface.co/spaces/Yuvraaj14/rag-document-assistant)*
 
@@ -191,7 +189,7 @@ Visit [https://huggingface.co/spaces/Yuvraaj14/rag-document-assistant](https://h
 
 ```bash
 # Clone repository
-git clone https://github.com/Yuvraaj14/rag-document-assistant
+git clone https://github.com/Yuvraaj14/RAG-Document-Assistant
 cd rag-document-assistant
 
 # Create .env file
@@ -245,7 +243,7 @@ Get your free Groq API key: https://console.groq.com/
 
 ---
 
-## 🔑 Design Decisions & Tradeoffs
+## ⚖️ Design Decisions & Tradeoffs
 
 ### FAISS vs ChromaDB
 **Chose FAISS** because:
@@ -277,9 +275,6 @@ Get your free Groq API key: https://console.groq.com/
 
 ---
 
-## 📁 Project Structure
-
-```
 ## 📁 Project Structure
 
 ```text
@@ -322,7 +317,6 @@ rag-assistant/
 │
 ├── venv/                            # Python virtual environment
 └── .env                             # Environment variables (not in Git)
-
 ```
 
 ---
