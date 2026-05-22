@@ -42,7 +42,7 @@ Upload any PDF document and ask questions in natural language. The system retrie
 
 ## 🎥 Demo
 
-![Demo](https://raw.githubusercontent.com/Yuvraaj14/rag-document-assistant/main/demo.gif)
+![Demo](https://raw.githubusercontent.com/Yuvraaj14/rag-document-assistant/demo.gif)
 
 *Try it yourself: [Live on Hugging Face Spaces](https://huggingface.co/spaces/Yuvraaj14/rag-document-assistant)*
 
