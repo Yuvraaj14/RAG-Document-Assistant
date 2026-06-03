@@ -1,14 +1,4 @@
-﻿title: RAG Document Assistant
-emoji: 📄
-colorFrom: blue
-colorTo: purple
-sdk: gradio
-sdk_version: 4.44.1
-python_version: '3.10'
-app_file: app.py
-pinned: false
-
-# 📄 RAG Document Q&A Assistant
+﻿# 📄 RAG Document Q&A Assistant
 
 AI-powered document question-answering system with cited sources using RAG (Retrieval Augmented Generation)
 
