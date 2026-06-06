@@ -50,64 +50,9 @@ Upload any PDF document and ask questions in natural language. The system retrie
 
 ## 🏗️ System Architecture
 
-```mermaid
-graph TB
-    subgraph "User Interface Layer"
-        A[👤 User] -->|1. Upload PDF| B[Gradio Frontend<br/>localhost:7860]
-        A -->|4. Ask Question| B
-    end
-    
-    subgraph "API Gateway"
-        B -->|2. POST /api/upload| C[FastAPI Backend<br/>localhost:8000]
-        B -->|5. POST /api/ask| C
-        C -->|Validate JWT| D[Auth Middleware<br/>JWT HS256]
-        D -->|✓ Authorized| E[API Routes Handler]
-    end
-    
-    subgraph "Document Processing Pipeline"
-        E -->|Upload Flow| F[PyPDFLoader<br/>Extract Text]
-        F -->|18 pages| G[RecursiveCharacterTextSplitter<br/>chunk_size=500<br/>overlap=50]
-        G -->|65 chunks| H[HuggingFace Embeddings<br/>all-MiniLM-L6-v2<br/>384 dimensions]
-        H -->|65 vectors| I[(FAISS Index<br/>Vector Store<br/>In-Memory)]
-        I -->|Save| J[Disk Storage<br/>faiss_index/]
-    end
-    
-    subgraph "Query Processing Pipeline"
-        E -->|Query Flow| K{Redis Cache<br/>Check MD5 Hash}
-        K -->|❌ Cache Miss| L[FAISS Similarity Search<br/>cosine distance<br/>top_k=3]
-        K -->|✅ Cache Hit| M[Return Cached Result<br/>⚡ ~40% hit rate]
-        L -->|3 relevant chunks| N[LangChain LCEL Chain<br/>Retriever → Format → LLM]
-        N -->|Context + Prompt| O[Groq API<br/>llama-3.3-70b-versatile]
-        O -->|Generated text| P[Format Response<br/>Answer + Sources + Page refs]
-        P -->|Cache with TTL| K
-        P -->|Return| Q[JSON Response<br/>answer, sources, cached]
-    end
-    
-    subgraph "External Services"
-        O -.->|API Call<br/>~2s latency| R[☁️ Groq Cloud<br/>LLM Inference]
-        K -.->|Read/Write<br/>TTL 3600s| S[☁️ Redis Upstash<br/>Cache Layer]
-    end
-    
-    subgraph "Deployment Infrastructure"
-        B --> T[🐳 Docker Container<br/>Gradio Frontend<br/>gradio:latest]
-        C --> U[🐳 Docker Container<br/>FastAPI Backend<br/>python:3.10-slim]
-        T --> V[🤗 Hugging Face Spaces<br/>16GB RAM<br/>Always-on Hosting]
-        U --> V
-    end
-    
-    Q --> B
-    M --> B
-    
-    style A fill:#e1f5ff,stroke:#01579b,stroke-width:2px
-    style B fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
-    style C fill:#81d4fa,stroke:#0288d1,stroke-width:2px
-    style I fill:#fff59d,stroke:#f57f17,stroke-width:2px
-    style O fill:#ffcc80,stroke:#e65100,stroke-width:2px
-    style R fill:#ffab91,stroke:#bf360c,stroke-width:2px
-    style S fill:#ce93d8,stroke:#4a148c,stroke-width:2px
-    style V fill:#a5d6a7,stroke:#1b5e20,stroke-width:2px
-    style K fill:#fff9c4,stroke:#f57f17,stroke-width:2px
-```
+![Architecture](architecture.jpeg)
+
+---
 
 ### Key Metrics
 
@@ -138,7 +83,6 @@ graph TB
    - Groq API generates answer (~2s)
    - Response cached in Redis (1 hour TTL)
 5. Answer + sources returned to frontend
-
 
 ---
 
